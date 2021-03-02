@@ -1,0 +1,3 @@
+mturkinterface.html: Template used for the Mechanical Turk Platform. Contains Javascript+HTML code. Template is derived from https://github.com/Varal7/ieturk
+
+example_batch.csv: Batch compatible with the template

@@ -1,0 +1,788 @@
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<section class="container" id="Relevancy">
+
+    <!-- TAGGING INSTRUCTIONS -->
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="panel panel-primary"><a class="panel-heading" href="javascript:void(0);"
+                                                id="collapseTrigger"><strong>Instructions</strong> <span
+                    class="collapse-text">(Click to expand)</span> </a>
+                <div class="panel-body" id="instructionBody"><strong></strong>
+
+                    <h4>Highlight the text parts in the shown sentences that describe:</h4>
+                    <ul>
+                        <li>The <span class="age-color">Age</span> of the patient</li>
+                        <ul>
+                            <li>
+                                "A <span class="age-color">24-year-old</span> man ..."
+                            </li>
+                            <li>
+                                <strong>Do not</strong> highlight age indicators like "<s>teenager</s>", "<s>young</s>",
+                                "<s>senior</s>", ...
+                            </li>
+                        </ul>
+                        <li>The <span class="gender-color">Gender</span> of the patient
+                        </li>
+                        <ul>
+                            <li>
+                                "A 24-year-old <span class="gender-color">female</span> patient ..."
+                            </li>
+                            <li>
+                                "The <span class="gender-color">boy</span> was ..."
+                            </li>
+                            <li>
+                                "<span class="gender-color">He</span> experienced ..."
+                            </li>
+                            <li>
+                                "<span class="gender-color">Her</span> blood levels ..."
+                            </li>
+                        </ul>
+                        <li>The <span class="symptom-color">Symptoms</span> of the patient.
+                        </li>
+                        <ul>
+                            <li>Make sure to include all characteristics of a symptom (for example: duration, time of
+                                onset, location)
+                            </li>
+                            <li>"... experienced <span class="symptom-color">2 weeks of headache</span> in addition ..."
+                            </li>
+                            <li>"...measured <span class="symptom-color">high fever</span> in ..."</li>
+                            <li>"... he had <span
+                                    class="symptom-color">abdominal pain in the upper right quadrant</span> ."
+                            <li>
+                                <strong>Do not</strong> highlight separators between listings of symptoms
+                                <ul>
+                                    <li>
+                                        "... had <span class="symptom-color">headache</span> and <span
+                                            class="symptom-color">39 degree fever at time of diagnosis</span> ."
+                                    </li>
+                                    <li>
+                                        "... symptoms were <span class="symptom-color">headache</span> , <span
+                                            class="symptom-color">fever</span> , and <span class="symptom-color">severe nausea</span>
+                                        ."
+                                    </li>
+                                </ul>
+
+
+                            </li>
+                        </ul>
+
+                    </ul>
+
+
+                    <h4>How to highlight?</h4>
+                    <ul>
+                        <li>Click a word in a sentence to highlight it.</li>
+                        <li>To highlight multiple words, click and hold the mouse while moving over all words
+                            that you wish to highlight.
+                        </li>
+                        <li>
+                            If none of the shown sentences contains information that should be highlighted, check the
+                            checkbox.
+                        </li>
+                    </ul>
+                    <h4>Examples</h4>
+
+                    <table class="table table-condensed table-striped table-responsive">
+                        <tbody id="instruction-table">
+                        <tr>
+                            <td>
+                                <i>
+                                    A <span class="age-color">55-year-old</span> <span class="gender-color">woman</span>
+                                    presented with <span class="symptom-color">sudden-onset itchy lesions on her arms and legs for almost 20 days</span>.
+                                </i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>
+                                    Bronchoscopic examination showed an enlarged non-collapsible horseshoe-shaped
+                                    trachea.
+                                </i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>
+                                    Atrial myxoma , the commonest primary cardiac neoplasm , presents with symptoms of
+                                    <span class="symptom-color">heart failure</span> , <span class="symptom-color">embolic phenomena</span>
+                                    or <span class="symptom-color">constitutional upset</span> . </i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>
+                                    An <span class="age-color">14-year-old</span> <span class="gender-color">boy</span>
+                                    was evaluated for <span class="symptom-color">chronic cough</span> and <span
+                                        class="symptom-color">right lower lobe (RLL) mass</span>.
+                                </i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>
+                                    The patient is currently being treated with 6 months of anticoagulation with
+                                    rivaroxiban.
+                                </i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>
+                                    Questioning elicited an additional history of <span class="symptom-color">sore throat</span>
+                                    and <span class="symptom-color">mild , dry cough</span> .
+                                </i>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- HEADING -->
+    <div id="raw">${texts}</div>
+
+
+    <!-- ANNOTATION INTERFACE -->
+    <div class="row" id="workContent">
+        <div class="col-xs-10 col-sm-10 content">
+            <div id="well" class="ann"></div>
+
+
+            <input type="checkbox" id="notrelevant" class="form-check-input" name="noval"
+                   onchange="show()"> <label
+                for="notrelevant" class="form-check-label">None of the sentences contains information relevant for
+            highlighting.</label>
+        </div>
+        <div class="col-xs-2 col-sm-2 fields">
+            <div class="btn-group-vertical" data-toggle="buttons" id="choice">
+            </div>
+        </div>
+
+    </div>
+
+    <div id="form" class="row">
+        <input type="hidden" id="splits" name="splits" value="${splits}">
+        <input type="hidden" id="senids" name="senids" value="${senids}">
+        <input type="hidden" id="dois" name="dois" value="${dois}">
+        <input type="hidden" id="age-clicks" name="age-clicks" value="-1">
+        <input type="hidden" id="gender-clicks" name="gender-clicks" value="0">
+        <input type="hidden" id="symptom-clicks" name="symptom-clicks" value="0">
+    </div>
+    <span title="Highlight all fields before submitting"><input id="submit" class="btn btn-default" data-key="Enter"
+                                                                type="submit" disabled=disabled/></span>
+</section>
+<link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet"/>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"
+        integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+
+<style>
+    #collapseTrigger {
+        color: #fff;
+        display: block;
+        text-decoration: none;
+    }
+
+    .btn {
+        /*color: grey !important;*/
+    }
+
+    .btn.active {
+        font-weight: bold;
+        color: black !important;
+        border: 5px solid black
+    }
+
+    #submitButton {
+        white-space: normal;
+    }
+
+    #instructionBody table {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+
+    #instructionBody table caption {
+        text-align: left;
+        padding: 0 0 5px 0;
+    }
+
+    #choice {
+        display: block;
+        /*margin-top: 10px;*/
+    }
+
+    .content {
+        margin-bottom: 15px;
+    }
+
+    .question {
+        margin-left: 15px;
+        padding-left: 10px;
+        border-left: double;
+    }
+
+    .radio:first-of-type {
+        margin-top: -5px;
+    }
+
+    .ann {
+        font-size: 14px;
+    }
+
+    .disp {
+        font-size: 20px;
+    }
+
+    .ann > span.token {
+        /*cursor: pointer;*/
+    }
+
+    .ann > span.token:hover {
+        text-decoration: underline;
+    }
+
+    .ann > span.annotation:hover {
+        text-decoration: line-through;
+    }
+
+    .annotation {
+        font-weight: normal;
+        background-color: #EAD379;
+    }
+
+    /*.annotation-age {*/
+    /*     background-color: yellow;*/
+    /*}*/
+
+    /*.annotation-age {*/
+    /*     background-color: yellow;*/
+    /*}*/
+
+    .btn-ann {
+        font-size: 10px;
+    }
+
+    input[disabled] {
+        color: #000
+    }
+
+    .age-color {
+        background-color: rgba(230, 25, 75, 0.5)
+    }
+
+    .gender-color {
+        background-color: rgba(60, 180, 75, 0.5)
+    }
+
+    .symptom-color {
+        background-color: rgba(255, 225, 25, 0.5)
+    }
+
+    .diagnosis-color {
+        background-color: rgba(0, 130, 200, 0.5)
+    }
+
+
+</style>
+
+<script>
+    // ---------------------------------------------------------
+    // Config
+    // ---------------------------------------------------------
+
+    var fieldName = {
+        "age": "Age",
+        "gender": "Gender",
+        "symptom": "Symptom",
+        // "diagnosis": "Diagnosis",
+    }
+    var shortName = {
+        "age": "age",
+        "gender": "gender",
+        "symptom": "symptom",
+        // "diagnosis": "diagnosis",
+    }
+    var longDesc = {
+        "age": "The age of the patient.",
+        "gender": "The gender of the patient.",
+        "symptom": "The symptoms of the patient.",
+        // "diagnosis": "The final diagnosis. Usually, this is a disease but can also be multiple diseases.",
+    }
+    var shortcutKey = {
+        "age": "q",
+        "gender": "w",
+        "symptom": "e",
+        // "diagnosis": "d",
+    }
+    var colorStyles = {
+        "age": 'rgba(230, 25, 75, 0.5)',
+        "gender": 'rgba(60, 180, 75, 0.5)',
+        "symptom": 'rgba(255, 225, 25, 0.5)',
+        // "diagnosis": 'rgba(0, 130, 200, 0.5)',
+    }
+
+
+    // ---------------------------------------------------------
+    // Global
+    // ---------------------------------------------------------
+
+    var keys = Object.keys(fieldName);
+    var annotations = {};
+    var values = {};
+    var key;
+
+    // var splitpositions = new Set("${splits}".split(' ').map((val) => {
+    //     return parseInt(val);
+    // }))
+    var splitpositions = "${splits}".split(' ').map((val) => {
+        return parseInt(val);
+    })
+
+
+    // ---------------------------------------------------------
+    // Create jQuery elements
+    // ---------------------------------------------------------
+
+    var raw = $('#raw');
+    var well = $('#well');
+    var submit = $('#submit');
+    var choice = $('#choice');
+    var keyname = $('#key-name');
+    // var instructionspan = $("description")
+    var instructionTable = $('#instruction-table');
+
+    var form = $("#form");
+    var answer = {};
+    var tagHidden = {};
+    var noVal = {};
+    var radios = {};
+    // answerHiddenDuplicates value of answer but is needed because
+    // otherwise the data is not sent
+    var answerHidden = {};
+
+    var makeInstruction = function (key) {
+        return ($(
+                '<tr>')
+                .append($('<td>').text(fieldName[key]))
+                .append($('<td>').text(longDesc[key]))
+        );
+    }
+
+    var makeChoice = function (key) {
+        var input = ($(
+                '<input>')
+                .attr({
+                    'name': 'choice', 'id': key + "-choice",
+                    'value': key, 'type': 'radio', 'data-key': shortcutKey[key]
+                })
+                .text(fieldName[key])
+        );
+        radios[key] = input;
+        var label = ($(
+                '<label style="background-color: ' + colorStyles[key] + '">')
+                .addClass('btn btn-default')
+                .text(fieldName[key])
+                .append(input)
+                .attr({'title': "Shortcut: " + shortcutKey[key]})
+        );
+        return label;
+    }
+
+    var makeAnswerHidden = function (key) {
+        var input = ($(
+                '<input>')
+                .attr({'type': 'hidden', 'name': key, 'id': key + "-hidden"})
+        );
+        answerHidden[key] = input;
+        return input;
+    }
+
+    var makeTagHidden = function (key) {
+        var input = ($(
+                '<input>')
+                .attr({'type': 'hidden', 'name': key + "-tag", 'id': key + "-tag"})
+        );
+        tagHidden[key] = input;
+        return input;
+    }
+
+
+    var makeFormRow = function (key) {
+
+        var input = ($(
+                '<input>')
+                .attr({'type': 'text', 'disabled': 'disabled', 'id': key})
+                .addClass('form-control')
+        );
+
+        var div = ($(
+                '<div hidden>')
+                .addClass('col-xs-12 col-sm-12 content')
+                .append($('<label>')
+                    .attr({'for': key})
+                    .text(fieldName[key])
+                )
+                .append($('<div>')
+                    .addClass('form-row')
+                    .append($('<div>')
+                        .addClass('col-sm-8')
+                        .append(input)
+                    )
+                    .append($('<div>')
+                        .addClass('col-sm-4')
+                        .append($('<div>')
+                                .addClass('form-check')
+                                // .append(checkbox)
+                                .append(' ')
+                            // .append(label)
+                        )
+                    )
+                )
+        );
+        answer[key] = input;
+        // noVal[key] = checkbox;
+        return div;
+    }
+
+
+    var makeDom = function () {
+        for (var key of keys) {
+            form.append(makeFormRow(key));
+            form.append(makeTagHidden(key));
+            form.append(makeAnswerHidden(key));
+            choice.append(makeChoice(key));
+            annotations[key] = [];
+            values[key] = "";
+            // instructionTable.append(makeInstruction(key));
+        }
+
+        //Custom
+        // $("#description").html("test")
+    }
+
+    // ---------------------------------------------------------
+    // Annotation logic
+    // ---------------------------------------------------------
+
+    var old_annotations = [];
+
+
+    var get_annotation_id = function (token_id, annotations) {
+        var found = annotations.findIndex(function (annotation) {
+            return token_id >= annotation[0] && token_id < annotation[1];
+        });
+        return found;
+    };
+
+    var tmpClean = function (key) {
+        annotations[key].sort(function (a, b) {
+            return a[0] - b[0];
+        });
+        answer[key].val(values[key]);
+        answerHidden[key].val(values[key]);
+        tagHidden[key].val(annotations[key]);
+    }
+
+    var mouse_down = function (id) {
+        // console.log("Mouse Down")
+        let deletedSomething = false;
+        Object.keys(annotations).forEach(function (curkey) {
+            var annotation_id = get_annotation_id(id, annotations[curkey]);
+            if (annotation_id > -1) {
+
+                delete_annotation(annotation_id, curkey);
+                specShow(curkey);
+
+                deletedSomething = true
+            }
+        });
+
+        if (deletedSomething === false)
+            first_token = id;
+        show()
+        // }
+    };
+
+    var mouse_up = function (id) {
+        if (first_token > -1) {
+            if (first_token <= id) {
+                add_annotation([first_token, id + 1]);
+            } else {
+                add_annotation([id, first_token + 1]);
+            }
+            first_token = -1;
+            show();
+        }
+        clear_selection();
+    };
+
+    var clear_selection = function () {
+        if (document.selection) {
+            document.selection.empty();
+        } else if (window.getSelection) {
+            window.getSelection().removeAllRanges();
+        }
+    };
+
+    var get_value = function () {
+        var values = _.map(annotations[key], function (annotation) {
+            return tokens.slice(annotation[0], annotation[1]).join(" ");
+        });
+        return values.join(" ");
+    };
+
+    var get_value_key = function (key) {
+        var values = _.map(annotations[key], function (annotation) {
+            return tokens.slice(annotation[0], annotation[1]).join(" ");
+        });
+        return values.join(" ");
+    };
+
+    var remove_all_annotations = function () {
+        old_annotations = annotations[key].slice();
+        annotations[key] = []
+    };
+
+    var delete_annotation = function (annotation_id, key) {
+        if (annotation_id > -1) {
+            old_annotations = annotations[key].slice();
+            annotations[key].splice(annotation_id, 1);
+        }
+    }
+
+    var add_annotation = function (annotation) {
+        // console.log("Add annotation:", annotation)
+        let skipthis = false;
+        // console.log("========================")
+        Object.keys(annotations).forEach(function (curkey) {
+            if (curkey !== key) {
+                const curanns = annotations[curkey]
+
+                for (let i = 0; i < curanns.length; i++) {
+                    const curann = curanns[i]
+                    const start = curann[0]
+                    const end = curann[1]
+
+                    if (annotation[0] < end && annotation[1] > start) {
+                        skipthis = true
+                    }
+                }
+            }
+
+        });
+        if (skipthis === false) {
+            old_annotations = annotations[key].slice();
+            annotations[key].push(annotation);
+        }
+    }
+
+    var toggle_old_new = function () {
+        var new_annotations = annotations[key].slice();
+        annotations[key] = old_annotations.slice();
+        old_annotations = new_annotations;
+    }
+
+
+    // ---------------------------------------------------------
+    // Displaying
+    // ---------------------------------------------------------
+
+    var sequence_html = function (sequence) {
+        if (sequence === undefined) {
+            return ""
+        }
+
+        var ret = _.map(sequence, function (token, index) {
+
+            let retval = '<span class="token" id=tok_' + index + '> '
+                + token + ' </span>'
+
+            // if (splitpositions.has(index))
+            //     retval = "<br/><br/>" + retval
+            return retval;
+        });
+
+        Object.keys(annotations).forEach(function (key) {
+            _.each(annotations[key], function (annotation) {
+                ret[annotation[0]] = '<span class="annotation annotation-' + key + '" style="background-color: ' + colorStyles[key] + '">'
+                    + ret[annotation[0]];
+                ret[annotation[1] - 1] = ret[annotation[1] - 1] + '</span>';
+            });
+        });
+
+        //Add Wells
+        var end = 0;
+        var start = 0;
+        for (let k = 0; k < splitpositions.length; k++) {
+            end = splitpositions[k];
+            ret[start] = '<div class="well ann" style="padding:6px; margin-bottom:10px">' + ret[start];
+            ret[end - 1] = ret[end - 1] + '</div>';
+
+            start = end
+        }
+
+        return ret.join(' ');
+    }
+
+
+    var canSubmit = function () {
+        for (var key of keys) {
+            if (values[key] !== "") {
+                $('input[name=noval]').prop("checked", false)
+                $('input[name=noval]').prop("disabled", true)
+                return true;
+            }
+        }
+        $('input[name=noval]').prop("disabled", false)
+        if ($('input[name=noval]:checked').length !== 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    var show = function () {
+
+        annotations[key].sort(function (a, b) {
+            return a[0] - b[0];
+        });
+        //fill_annotated_values(datum);
+        seq_html = sequence_html(tokens); //old
+        // console.log(annotations)
+        // seq_html = sequence_html(tokens, annotations);
+        well.html(seq_html);
+        values[key] = get_value();
+        answer[key].val(values[key]);
+        answerHidden[key].val(values[key]);
+        tagHidden[key].val(annotations[key]);
+
+        // keyname.html(shortName[key]);
+        keyname.html('<span style="background-color: ' + colorStyles[key] + '">' + shortName[key] + '</span>');
+
+        // console.log("answer:", answer)
+        // console.log("answerHidden:", answerHidden)
+        // console.log("tagHidden:", tagHidden)
+
+        // Handler on tokens
+        $(".token").mousedown(function () {
+            mouse_down(parseInt($(this).attr('id').split("_")[1]));
+        });
+        $(".token").mouseup(function () {
+            mouse_up(parseInt($(this).attr('id').split("_")[1]));
+        });
+
+        if (canSubmit()) {
+            submit.removeAttr("disabled");
+            submit.removeClass("btn-default");
+            submit.addClass("btn-success");
+        } else {
+            submit.attr("disabled", "disabled");
+            submit.removeClass("btn-success");
+            submit.addClass("btn-default");
+        }
+    };
+    var specShow = function (key) {
+        // console.log("SpecShow")
+        annotations[key].sort(function (a, b) {
+            return a[0] - b[0];
+        });
+        //fill_annotated_values(datum);
+        // seq_html = sequence_html(tokens); //old
+        // console.log(annotations)
+        // seq_html = sequence_html(tokens, annotations);
+        well.html(seq_html);
+        values[key] = get_value_key(key);
+        answer[key].val(values[key]);
+        answerHidden[key].val(values[key]);
+        tagHidden[key].val(annotations[key]);
+        // console.log(key);
+        // console.log(annotations[key]);
+        keyname.html(shortName[key]);
+
+
+        // Handler on tokens
+        $(".token").mousedown(function () {
+            mouse_down(parseInt($(this).attr('id').split("_")[1]));
+        });
+        $(".token").mouseup(function () {
+            mouse_up(parseInt($(this).attr('id').split("_")[1]));
+        });
+
+        if (canSubmit()) {
+            submit.removeAttr("disabled");
+            submit.removeClass("btn-default");
+            submit.addClass("btn-success");
+        } else {
+            submit.attr("disabled", "disabled");
+            submit.removeClass("btn-success");
+            submit.addClass("btn-default");
+        }
+    };
+
+
+    makeDom();
+
+    // ---------------------------------------------------------
+    // Event handlers
+    // ---------------------------------------------------------
+
+
+    //highlight selected category
+    var inputs = $("#choice input:radio");
+    inputs.change(function () {
+        inputs.parent().removeClass("btn-success");
+        inputs.parent().addClass("btn-default");
+        if ($(this).is(":checked")) {
+            key = $(this).val();
+
+            $('#' + key + "-clicks").val(function (i, oldval) {
+                return parseInt(oldval, 10) + 1;
+            });
+            // let countcurrent = $('#' + key + "-clicks").val();
+            // console.log(key, "was clicked!", "Current count:", countcurrent);
+            $(this).parent().removeClass("btn-default");
+            $(this).parent().addClass("btn-success");
+            show();
+        } else {
+            $(this).parent().removeClass("btn-success");
+            $(this).parent().addClass("btn-default");
+        }
+    });
+
+    // Instructions expand/collapse
+    var content = $('#instructionBody');
+    var trigger = $('#collapseTrigger');
+    content.hide();
+    $('.collapse-text').text('(Click to expand)');
+    trigger.click(function () {
+        content.toggle();
+        var isVisible = content.is(':visible');
+        if (isVisible) {
+            $('.collapse-text').text('(Click to collapse)');
+        } else {
+            $('.collapse-text').text('(Click to expand)');
+        }
+    });
+
+    // ---------------------------------------------------------
+    // Initialize
+    // ---------------------------------------------------------
+
+
+    key = keys[0];
+    radios[key].click();
+    var tokens = raw.text().split(" ");
+    raw.hide();
+    show();
+</script>
+
