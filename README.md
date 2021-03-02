@@ -61,7 +61,7 @@ The annotations are in the following JSON-format:
 ## Annotation Interface
 The annotation interface used developed for the Mechanical Turk platform is available in the subfolder *annotation_interface*. 
 
-![Screenshot of the annotation interface](https://github.com/Markus-Zlabinger/casereports/annotation_interface/screenshot.jpg)
+![Screenshot of the annotation interface](https://github.com/Markus-Zlabinger/casereports/blob/main/annotation_interface/screenshot.jpg)
 
 ## Publication  
 More details on the Groupwise annotation approach can be found in our publication:
