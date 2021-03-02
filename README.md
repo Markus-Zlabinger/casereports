@@ -53,9 +53,10 @@ The annotations are in the following JSON-format:
 ....   
 }
 ```  
-*wid* is a unique worker ID for this set of annotations
-*type* is the named-entity type
-*annotation* are the token-level annotations assigned to this sentence
+
+- *wid* is a unique worker ID for this set of annotations
+- *type* is the named-entity type
+- *annotation* are the token-level annotations assigned to this sentence
 
 ## Annotation Interface
 The annotation interface used developed for the Mechanical Turk platform is available in the subfolder *annotation_interface*. 
