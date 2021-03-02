@@ -10,7 +10,7 @@ We annotated 90 sentences using two annotation approaches.
 - **Sequential:** The sentences are randomly bundled into groups of 3 (i.e., 30 bundles), which are then labeled by the crowdworkers.
 - **Groupwise:** The sentences are bundled into groups of 3 based on their semantic similarity. The bundling of semantically similar sentences improves the time-efficiency of the annotation procedure. More information on this approach can be found in the referenced publication.
 
-We refer to the set of the 90 sentences as *small* corpus for which this repository provides the following sets of annotations:
+Information on how the sentences were bundled are available in *data/groupings*. We refer to the set of the 90 sentences as *small* corpus for which this repository provides the following sets of annotations:
 
  - **expert-small.json:** annotations by a medical expert
  - **sequential-small.json:** 5 annotations per sentence by crowdworkers using the Sequential approach
